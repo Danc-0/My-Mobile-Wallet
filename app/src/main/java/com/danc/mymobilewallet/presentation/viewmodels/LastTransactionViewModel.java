@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.danc.mobilewallet.domain.models.Request.LastTransactionRequest;
+import com.danc.mobilewallet.domain.models.Response.LastTransactionsResponse;
 import com.danc.mymobilewallet.data.remote.WalletApi;
 import com.danc.mymobilewallet.domain.use_case.LoginUseCase;
 import com.danc.mymobilewallet.utils.Event;
@@ -24,7 +25,7 @@ public class LastTransactionViewModel extends ViewModel {
 
     CompositeDisposable disposables = new CompositeDisposable();
 
-    public MutableLiveData<Event<Resource<LastTransactionRequest>>> lastTransResponseMutableLiveData;
+    public MutableLiveData<Event<Resource<LastTransactionsResponse>>> lastTransResponseMutableLiveData;
 
     private LoginUseCase loginUseCase;
     private WalletApi walletApi;
@@ -35,7 +36,7 @@ public class LastTransactionViewModel extends ViewModel {
         lastTransResponseMutableLiveData = new MutableLiveData<>();
     }
 
-    public LiveData<Event<Resource<LastTransactionRequest>>> getLastTransactionResponseLiveData() {
+    public LiveData<Event<Resource<LastTransactionsResponse>>> getLastTransactionResponseLiveData() {
         return lastTransResponseMutableLiveData;
     }
 
