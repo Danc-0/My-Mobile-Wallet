@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.danc.mobilewallet.domain.models.Response.AllTransactionsItem;
+import com.danc.mobilewallet.domain.models.Response.LastTransactionsResponseItem;
 import com.danc.mymobilewallet.R;
 import com.danc.mymobilewallet.databinding.ListItemTransactionBinding;
 
@@ -15,9 +16,9 @@ import java.util.List;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.TransactionsViewHolder> {
 
-    public List<AllTransactionsItem> allTransactionsItems;
+    public List<LastTransactionsResponseItem> allTransactionsItems;
 
-    public TransactionsAdapter(List<AllTransactionsItem> allTransactionsItems){
+    public TransactionsAdapter(List<LastTransactionsResponseItem> allTransactionsItems){
         this.allTransactionsItems = allTransactionsItems;
     }
 
@@ -31,7 +32,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TransactionsViewHolder holder, int position) {
-        AllTransactionsItem allTransactionsItem = allTransactionsItems.get(position);
+        LastTransactionsResponseItem allTransactionsItem = allTransactionsItems.get(position);
         holder.bind(allTransactionsItem);
 
     }
@@ -50,8 +51,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
             this.binding = itemView;
         }
 
-        public void bind(AllTransactionsItem allTransactionsItem){
-            binding.tvAmount.setText((int) allTransactionsItem.getAmount());
+        public void bind(LastTransactionsResponseItem allTransactionsItem){
+            binding.tvAmount.setText(String.valueOf(allTransactionsItem.getAmount()));
             binding.tvID.setText(allTransactionsItem.getTransactionId());
         }
     }

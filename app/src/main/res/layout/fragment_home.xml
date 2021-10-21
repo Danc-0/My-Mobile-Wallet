@@ -58,6 +58,7 @@
             app:layout_constraintVertical_bias=".1">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/customerBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="25dp"
@@ -126,6 +127,7 @@
             app:layout_constraintWidth_percent=".45">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/lastTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -186,6 +188,7 @@
             app:layout_constraintWidth_percent=".45">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/sendCash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -244,6 +247,7 @@
             app:layout_constraintWidth_percent=".45">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/statement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -305,6 +309,7 @@
             app:layout_constraintWidth_percent=".45">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/userProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.danc.mobilewallet.domain.models.Request.SendMoneyRequest;
+import com.danc.mobilewallet.domain.models.Response.SendMoneyResponse;
 import com.danc.mymobilewallet.data.remote.WalletApi;
 import com.danc.mymobilewallet.domain.use_case.LoginUseCase;
 import com.danc.mymobilewallet.utils.Event;
@@ -24,7 +25,7 @@ public class SendMoneyViewModel extends ViewModel {
 
     CompositeDisposable disposables = new CompositeDisposable();
 
-    public MutableLiveData<Event<Resource<SendMoneyRequest>>> sendMoneyLivedata;
+    public MutableLiveData<Event<Resource<SendMoneyResponse>>> sendMoneyLivedata;
 
     private LoginUseCase loginUseCase;
     private WalletApi walletApi;
@@ -35,7 +36,7 @@ public class SendMoneyViewModel extends ViewModel {
         sendMoneyLivedata = new MutableLiveData<>();
     }
 
-    public LiveData<Event<Resource<SendMoneyRequest>>> getLoginResponseLiveData() {
+    public LiveData<Event<Resource<SendMoneyResponse>>> postSendResponseLiveData() {
         return sendMoneyLivedata;
     }
 

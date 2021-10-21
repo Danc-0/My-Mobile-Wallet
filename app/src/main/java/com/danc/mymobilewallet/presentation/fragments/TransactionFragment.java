@@ -10,11 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.danc.mobilewallet.domain.models.Request.LastTransactionRequest;
 import com.danc.mobilewallet.domain.models.Response.LastTransactionsResponse;
+import com.danc.mobilewallet.domain.models.Response.LastTransactionsResponseItem;
 import com.danc.mymobilewallet.R;
 import com.danc.mymobilewallet.databinding.FragmentTransactionsBinding;
+import com.danc.mymobilewallet.presentation.adapter.TransactionsAdapter;
 import com.danc.mymobilewallet.presentation.viewmodels.LastTransactionViewModel;
 import com.danc.mymobilewallet.utils.Resource;
 
@@ -22,6 +25,8 @@ public class TransactionFragment extends Fragment {
 
     public LastTransactionViewModel transactionViewModel;
     FragmentTransactionsBinding binding;
+    TransactionsAdapter adapter;
+    double totalValue;
 
     @Nullable
     @Override
@@ -37,7 +42,7 @@ public class TransactionFragment extends Fragment {
         transactionViewModel = new ViewModelProvider(getActivity()).get(LastTransactionViewModel.class);
 
         LastTransactionRequest lastTransactionRequest = new LastTransactionRequest(
-                ""
+                "CUST1485"
         );
 
         getLastTransactions(lastTransactionRequest);
@@ -53,10 +58,17 @@ public class TransactionFragment extends Fragment {
 
                 if (lastTransactionsResponseResource instanceof Resource.Success){
                     LastTransactionsResponse lastTransactionsResponse = ((Resource.Success<LastTransactionsResponse>) lastTransactionsResponseResource).getValue();
-                    Log.d("TAG", "getLastTransactions: " + lastTransactionsResponse);
 
-                } else if (lastTransactionsResponseResource instanceof Resource.Failure){
-                    Log.d("TAG", "getLastTransactions: " + "Error Message");
+                    adapter = new TransactionsAdapter(lastTransactionsResponse);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    binding.rvTransactions.setAdapter(adapter);
+                    binding.rvTransactions.setLayoutManager(linearLayoutManager);
+                    for(LastTransactionsResponseItem lastTransactionsResponseItems: lastTransactionsResponse){
+                        totalValue += lastTransactionsResponseItems.getAmount();
+                    }
+
+                    binding.amountTotal.setText(String.valueOf(totalValue));
+
                 }
 
             }

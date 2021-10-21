@@ -52,9 +52,9 @@ public class MiniTransactionsAdapter extends RecyclerView.Adapter<MiniTransactio
         }
 
         public void bind(MiniStatementResponseItem miniStatementResponseItem){
-            binding.balanceAmount.setText((int) miniStatementResponseItem.getBalance());
+            binding.balanceAmount.setText(String.valueOf(miniStatementResponseItem.getBalance()));
             binding.customerCode.setText(miniStatementResponseItem.getCustomerId());
-            binding.loanAmount.setText((int) miniStatementResponseItem.getAmount());
+            binding.loanAmount.setText(String.valueOf(miniStatementResponseItem.getAmount()));
             binding.transType.setText(miniStatementResponseItem.getTransactionType());
             binding.transCode.setText(miniStatementResponseItem.getTransactionId());
 

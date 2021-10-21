@@ -39,28 +39,26 @@ public class HomeFragment extends Fragment {
         loginResponse = bundle.getParcelable("LoginResponse");
         binding.tvDetails.setText("Hey," +" " + loginResponse.getCustomerName() + "\nWhat would you like to do?");
 
-        binding.balance.setOnClickListener(view1 -> {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("LoginResponse", loginResponse);
-
+        bundle.putParcelable("LoginResponse", loginResponse);
+        binding.customerBalance.setOnClickListener(view1 -> {
             Navigation.findNavController(requireView()).navigate(R.id.to_balanceFragment, bundle);
 
         });
 
-        binding.sendMoney.setOnClickListener (view1 -> {
-            findNavController(requireView()).navigate(R.id.to_sendMoneyFragment2);
+        binding.sendCash.setOnClickListener (view1 -> {
+            findNavController(requireView()).navigate(R.id.to_sendMoneyFragment2, bundle);
         });
 
-        binding.statements.setOnClickListener(view1 -> {
-            findNavController(requireView()).navigate(R.id.to_view_miniStatementFragment);
+        binding.statement.setOnClickListener(view1 -> {
+            findNavController(requireView()).navigate(R.id.to_view_miniStatementFragment, bundle);
         });
 
-        binding.lastTransactions.setOnClickListener(view1 ->  {
+        binding.lastTransaction.setOnClickListener(view1 ->  {
             findNavController(requireView()).navigate(R.id.to_last_transactionsFragment);
         });
 
-        binding.profile.setOnClickListener(view1 -> {
-            findNavController(requireView()).navigate(R.id.to_profileFragment);
+        binding.userProfile.setOnClickListener(view1 -> {
+            findNavController(requireView()).navigate(R.id.to_profileFragment, bundle);
         });
 
         binding.logOut.setOnClickListener(view1 -> {
