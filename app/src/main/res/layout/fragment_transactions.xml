@@ -3,7 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
 
     <TextView
         android:id="@+id/textView2"
@@ -16,7 +25,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/backArrow" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTransactions"
@@ -30,16 +39,18 @@
         android:id="@+id/totals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10"
         android:gravity="center"
         android:text="Total: "
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_marginBottom="@dimen/margin_10"
-        app:layout_constraintHorizontal_bias=".35"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias=".35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvTransactions"
+        app:layout_constraintVertical_bias=".89" />
 
     <TextView
         android:id="@+id/amountTotal"
@@ -49,11 +60,25 @@
         android:text="Total"
         android:textColor="@color/black"
         android:textSize="40sp"
-        android:layout_marginBottom="@dimen/margin_10"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/totals"
         app:layout_constraintStart_toEndOf="@+id/totals"
         app:layout_constraintTop_toTopOf="@+id/totals" />
+
+    <TextView
+        android:id="@+id/noData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No Record of previous Transactions"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

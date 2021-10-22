@@ -12,6 +12,6 @@ data class LoginResponse(
     val CustomerID: String,
     @SerializedName("Customer Name")
     val CustomerName: String,
-
     val email: String
+
 ) : Parcelable

@@ -35,6 +35,7 @@ public class ProfileFragment extends Fragment {
         binding.names.setText(loginResponse.getCustomerName());
         binding.email.setText(loginResponse.getEmail());
         binding.customerID.setText(loginResponse.getCustomerID());
+        binding.customerAccount.setText(loginResponse.getCustomerAccount());
 
     }
 }

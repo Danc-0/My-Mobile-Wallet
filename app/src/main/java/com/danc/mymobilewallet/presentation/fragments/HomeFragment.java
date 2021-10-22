@@ -39,7 +39,6 @@ public class HomeFragment extends Fragment {
         loginResponse = bundle.getParcelable("LoginResponse");
         binding.tvDetails.setText("Hey," +" " + loginResponse.getCustomerName() + "\nWhat would you like to do?");
 
-        bundle.putParcelable("LoginResponse", loginResponse);
         binding.customerBalance.setOnClickListener(view1 -> {
             Navigation.findNavController(requireView()).navigate(R.id.to_balanceFragment, bundle);
 
@@ -54,7 +53,7 @@ public class HomeFragment extends Fragment {
         });
 
         binding.lastTransaction.setOnClickListener(view1 ->  {
-            findNavController(requireView()).navigate(R.id.to_last_transactionsFragment);
+            findNavController(requireView()).navigate(R.id.to_last_transactionsFragment, bundle);
         });
 
         binding.userProfile.setOnClickListener(view1 -> {

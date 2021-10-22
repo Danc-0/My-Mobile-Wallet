@@ -1,5 +1,7 @@
 package com.danc.mymobilewallet.presentation.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +30,8 @@ public class LoginFragment extends Fragment {
 
     FragmentLoginBinding binding;
     private LoginViewModel loginViewModel;
+    Context context = getActivity();
+    SharedPreferences sharedPref;
 
     @Nullable
     @Override
@@ -60,7 +64,6 @@ public class LoginFragment extends Fragment {
 
                 if (loginResponseResource instanceof Resource.Success){
                     LoginResponse loginResponse = ((Resource.Success<LoginResponse>) loginResponseResource).getValue();
-
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("LoginResponse", loginResponse);
                     Navigation.findNavController(requireView()).navigate(R.id.to_homeFragment, bundle);

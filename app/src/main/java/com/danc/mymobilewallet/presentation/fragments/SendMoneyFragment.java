@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +19,15 @@ import com.danc.mymobilewallet.R;
 import com.danc.mymobilewallet.databinding.FragmentSendMoneyBinding;
 import com.danc.mymobilewallet.presentation.viewmodels.SendMoneyViewModel;
 import com.danc.mymobilewallet.utils.Resource;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class SendMoneyFragment extends Fragment {
 
     FragmentSendMoneyBinding binding;
     SendMoneyViewModel sendMoneyViewModel;
     Bundle bundle = new Bundle();
+    LoginResponse loginResponse;
 
     @Nullable
     @Override
@@ -39,39 +43,59 @@ public class SendMoneyFragment extends Fragment {
         sendMoneyViewModel = new ViewModelProvider(getActivity()).get(SendMoneyViewModel.class);
 
         bundle = getArguments();
-        LoginResponse loginResponse = bundle.getParcelable("LoginResponse");
+        loginResponse = bundle.getParcelable("LoginResponse");
 
         binding.sendMoney.setOnClickListener(view1 -> {
-            SendMoneyRequest sendMoneyRequest = new SendMoneyRequest(
-                    loginResponse.getCustomerAccount(),
-                    binding.account.getText().toString(),
-                    Integer.parseInt(binding.amount.getText().toString()),
-                    loginResponse.getCustomerID()
-            );
-
-            sendMoney(sendMoneyRequest);
+            validateAccount();
         });
 
 
     }
 
-    public void sendMoney(SendMoneyRequest sendMoneyRequest){
+    public void sendMoney(SendMoneyRequest sendMoneyRequest) {
         sendMoneyViewModel.postSendRequest(sendMoneyRequest);
 
         sendMoneyViewModel.postSendResponseLiveData().observe(getViewLifecycleOwner(), resourceEvent -> {
-            if (!resourceEvent.getHasBeenHandled()){
+            if (!resourceEvent.getHasBeenHandled()) {
                 Resource<SendMoneyResponse> sendMoneyResponseResource = resourceEvent.getContentIfNotHandled();
-                if (sendMoneyResponseResource instanceof Resource.Success){
+                if (sendMoneyResponseResource instanceof Resource.Success) {
                     SendMoneyResponse sendMoneyResponse = ((Resource.Success<SendMoneyResponse>) sendMoneyResponseResource).getValue();
-                    Log.d("TAG", "sendMoney: " + sendMoneyResponse);
-
-
-                } else if (sendMoneyResponseResource instanceof Resource.Failure){
+                    if (sendMoneyResponse.getResponse_status() == true) {
+                        Toast.makeText(getContext(), "You have successfully sent " + binding.amount.getText().toString() + " to " + binding.account.getText().toString(), Toast.LENGTH_SHORT).show();
+                    }
 
                 }
 
             }
         });
 
+    }
+
+    private Boolean validateAccount() {
+        if (binding.account.getText().toString().trim().isEmpty()) {
+            binding.outlinedTextField.setError("Required Field!");
+            binding.account.requestFocus();
+            return false;
+        } else {
+            validateAmount();
+        }
+        return true;
+    }
+
+    private Boolean validateAmount() {
+        if (binding.amount.getText().toString().trim().isEmpty()) {
+            binding.outlinedTextField1.setError("Required Field!");
+            binding.amount.requestFocus();
+            return false;
+        } else {
+            SendMoneyRequest sendMoneyRequest = new SendMoneyRequest(
+                    loginResponse.getCustomerAccount(),
+                    binding.account.getText().toString(),
+                    Integer.parseInt(binding.amount.getText().toString()),
+                    loginResponse.getCustomerID()
+            );
+            sendMoney(sendMoneyRequest);
+        }
+        return true;
     }
 }

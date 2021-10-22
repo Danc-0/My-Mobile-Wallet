@@ -47,8 +47,8 @@ public class MiniStatementFragment extends Fragment {
         LoginResponse loginResponse = bundle.getParcelable("LoginResponse");
 
         MiniStatementRequest request = new MiniStatementRequest(
-                "ACT1485",
-                "CUST1485"
+                loginResponse.getCustomerAccount(),
+                loginResponse.getCustomerID()
         );
 
         miniStatementViewModel.getMiniStatement(request);
@@ -59,11 +59,15 @@ public class MiniStatementFragment extends Fragment {
 
                 if (balanceResponseResource instanceof Resource.Success) {
                     MiniStatementResponse miniStatementResponse = ((Resource.Success<MiniStatementResponse>) balanceResponseResource).getValue();
-                    adapter = new MiniTransactionsAdapter(miniStatementResponse);
-                    LinearLayoutManager linearLayoutManager =
-                            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                    binding.rvMiniTrans.setAdapter(adapter);
-                    binding.rvMiniTrans.setLayoutManager(linearLayoutManager);
+                    if (miniStatementResponse == null || miniStatementResponse.isEmpty()) {
+                        binding.noData.setVisibility(View.VISIBLE);
+                    } else {
+                        adapter = new MiniTransactionsAdapter(miniStatementResponse);
+                        LinearLayoutManager linearLayoutManager =
+                                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        binding.rvMiniTrans.setAdapter(adapter);
+                        binding.rvMiniTrans.setLayoutManager(linearLayoutManager);
+                    }
 
                 }
             }

@@ -48,10 +48,6 @@ public class BalanceFragment extends Fragment {
 
         getBalance(balanceRequest);
 
-        binding.backArrow.setOnClickListener(view1 -> {
-            getActivity().onBackPressed();
-        });
-
     }
 
     private void getBalance(BalanceRequest loginRequest){
